@@ -1,24 +1,20 @@
 package com.example.airbnb.model;
 
 import lombok.Data;
+import org.hibernate.validator.constraints.Length;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import java.io.Serializable;
 
 @Entity
 @Data
-public class Role implements Serializable {
-    private static final long serialVersionUID = 1L;
+public class LopHoc {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    private String name;
 
-    public static long getSerialVersionUID() {
-        return serialVersionUID;
-    }
-
+    @Length(max = 30)
+    private String tenLop;
 }

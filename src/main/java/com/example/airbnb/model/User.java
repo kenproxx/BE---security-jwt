@@ -1,17 +1,22 @@
 package com.example.airbnb.model;
 
+import lombok.Data;
 import org.hibernate.annotations.NaturalId;
+import org.hibernate.validator.constraints.Length;
 
 import javax.persistence.*;
 import javax.validation.constraints.Email;
+import javax.validation.constraints.Max;
 
 import java.io.Serializable;
 
+import java.util.Date;
 import java.util.List;
 import java.util.Set;
 
 @Entity
 @Table(name = "userTable")
+@Data
 public class User implements Serializable {
     private static final long serialVersionUID = 1L;
 
@@ -35,66 +40,84 @@ public class User implements Serializable {
             inverseJoinColumns = {@JoinColumn(name = "role_id")})
     private Set<Role> roles;
 
-    public User(String username, String password, String confirmPassword, Set<Role> roles) {
-        this.username = username;
-        this.password = password;
-        this.confirmPassword = confirmPassword;
-        this.roles = roles;
-    }
+    @Length(max = 20)
+    private String tenThanh;
 
-    public User() {
-    }
+    @Length(max = 40)
+    private String tenGoi;
 
-    public static long getSerialVersionUID() {
-        return serialVersionUID;
-    }
+    private Date ngayThangNamSinh;
 
-    public Long getId() {
-        return id;
-    }
+    @Max(13)
+    private Integer soDienThoaiCaNhan;
 
-    public void setId(Long id) {
-        this.id = id;
-    }
+    @Email
+    @Length(max = 50)
+    private String email;
 
-    public String getUsername() {
-        return username;
-    }
+    private Date ngayRuaToi;
 
-    public void setUsername(String username) {
-        this.username = username;
-    }
+    @Length(max = 50)
+    private String nguoiRuaToi;
 
-    public String getPassword() {
-        return password;
-    }
+    @Length(max = 50)
+    private String nguoiDoDauRuaToi;
 
-    public void setPassword(String password) {
-        this.password = password;
-    }
+    private Date ngayThemSuc;
 
-    public String getConfirmPassword() {
-        return confirmPassword;
-    }
+    @Length(max = 50)
+    private String nguoiThemSuc;
 
-    public void setConfirmPassword(String confirmPassword) {
-        this.confirmPassword = confirmPassword;
-    }
+    @Length(max = 50)
+    private String nguoiDoDauThemSuc;
 
-    public Set<Role> getRoles() {
-        return roles;
-    }
+    private Date ngayCuHanhHonPhoi;
 
-    public void setRoles(Set<Role> roles) {
-        this.roles = roles;
-    }
+    @Length(max = 50)
+    private String nguoiCuHanhHonPhoi;
 
-    public boolean isEnabled() {
-        return enabled;
-    }
+    @Max(10)
+    private Integer phoiNgauId;
 
-    public void setEnabled(boolean enabled) {
-        this.enabled = enabled;
-    }
+    @Max(10)
+    private Integer nguoiLamChung1Id;
+
+    @Max(10)
+    private Integer nguoiLamChung2Id;
+
+    private Date ngayBonMang;
+
+    @Length(max = 254)
+    private String anhDaiDien;
+
+    @Length(max = 50)
+    private String tenBo;
+
+    @Max(13)
+    private Integer sdtBo;
+
+    @Length(max = 50)
+    private String tenMe;
+
+    @Max(13)
+    private Integer sdtMe;
+
+    @Length(max = 254)
+    private String diaChi;
+
+    @Max(10)
+    private Integer giaoXuId;
+
+    @Max(10)
+    private Integer lopId;
+
+    private Character nganh;
+
+    @Max(10)
+    private Integer parentCode;
+
+    private Character capBacHuynhTruong;
+
+    private boolean trangThai;
 
 }
