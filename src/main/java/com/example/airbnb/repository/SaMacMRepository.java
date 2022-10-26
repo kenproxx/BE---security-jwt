@@ -1,15 +1,9 @@
 package com.example.airbnb.repository;
 
-
-import com.example.airbnb.model.User;
+import com.example.airbnb.model.SaMacManage;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
-
 @Repository
-public interface UserRepository extends JpaRepository<User, Long> {
-    User findByUsername(String username);
-
-
-
+public interface SaMacMRepository extends JpaRepository<SaMacManage, Long> {
 }
