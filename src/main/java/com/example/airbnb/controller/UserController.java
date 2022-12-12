@@ -48,11 +48,6 @@ public class UserController {
     private PasswordEncoder passwordEncoder;
 
 
-    @GetMapping("/users")
-    public ResponseEntity<Iterable<User>> showAllUser() {
-        Iterable<User> users = userService.findAll();
-        return new ResponseEntity<>(users, HttpStatus.OK);
-    }
     @GetMapping("/admin/users")
     public ResponseEntity<Iterable<User>> showAllUserByAdmin() {
         Iterable<User> users = userService.findAll();
@@ -100,11 +95,6 @@ public class UserController {
         UserDetails userDetails = (UserDetails) authentication.getPrincipal();
         User currentUser = userService.findByUsername(user.getUsername());
         return ResponseEntity.ok(new JwtResponse(jwt, currentUser.getId(), userDetails.getUsername(), userDetails.getAuthorities()));
-    }
-
-    @GetMapping("/hello")
-    public ResponseEntity<String> hello(){
-        return new ResponseEntity("Hello World", HttpStatus.OK);
     }
 
     @GetMapping("/users/{id}")
