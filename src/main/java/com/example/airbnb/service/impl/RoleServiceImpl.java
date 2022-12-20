@@ -26,5 +26,9 @@ roleRepository.save(role);
         return roleRepository.findByName(name);
     }
 
+    public Role findById(Long id) {
+        return roleRepository.findById(id).get();
+    }
+
 
 }
