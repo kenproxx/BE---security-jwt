@@ -1,11 +1,9 @@
 package com.example.airbnb.controller;
 
-import com.example.airbnb.dto.UserResponseDto;
 import com.example.airbnb.model.*;
 import com.example.airbnb.service.RoleService;
 import com.example.airbnb.service.UserService;
 import com.example.airbnb.service.impl.JwtService;
-import com.example.airbnb.service.impl.RoleExtendService;
 import com.example.airbnb.service.impl.UserDetailService;
 import com.example.airbnb.service.impl.UserServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,10 +20,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.HashSet;
-import java.util.List;
 import java.util.Optional;
-import java.util.Set;
 
 @RestController
 @PropertySource("classpath:application.properties")
@@ -53,8 +48,6 @@ public class UserController {
     @Autowired
     private RoleService roleService;
 
-    @Autowired
-    private RoleExtendService roleExtendService;
 
     @Autowired
     private PasswordEncoder passwordEncoder;
@@ -74,19 +67,6 @@ public class UserController {
         return userServiceImpl.createUser(user, bindingResult);
     }
 
-//    @PostMapping("/login")
-//    public ResponseEntity<?> login(@RequestBody User user) {
-//        Authentication authentication = authenticationManager.authenticate(
-//                new UsernamePasswordAuthenticationToken(user.getUsername(), user.getPassword()));
-//
-//        SecurityContextHolder.getContext().setAuthentication(authentication);
-//
-//        String jwt = jwtService.generateTokenLogin(authentication);
-//        UserDetails userDetails = (UserDetails) authentication.getPrincipal();
-//        User currentUser = userService.findByUsername(user.getUsername());
-//        return ResponseEntity.ok(new JwtResponse(jwt, currentUser.getId(), userDetails.getUsername(), userDetails.getAuthorities()));
-//    }
-
     @PostMapping("/login")
     public ResponseEntity<?> login(@RequestBody User user) {
         Authentication authentication = authenticationManager.authenticate(
@@ -96,22 +76,35 @@ public class UserController {
 
         String jwt = jwtService.generateTokenLogin(authentication);
         UserDetails userDetails = (UserDetails) authentication.getPrincipal();
-        String username = userDetails.getUsername();
-        UserDetail userDetail = userDetailService.findByUsername(user.getUsername());
-
-        UserResponseDto userResponseDto = new UserResponseDto();
-        userResponseDto.setId(userDetail.getUdid());
-        userResponseDto.setName(userDetail.getTenGoi());
-        userResponseDto.setUsername(username);
-        userResponseDto.setStatus("1");
-        userResponseDto.setRoleId(userDetail.getRoleId());
-        RoleExtend roleExtend = roleExtendService.getById(userDetail.getRoleId());
-        userResponseDto.setRole(roleExtend);
-        userResponseDto.setToken(jwt);
-        System.out.println(userResponseDto);
-
-        return ResponseEntity.ok(userResponseDto);
+        User currentUser = userService.findByUsername(user.getUsername());
+        return ResponseEntity.ok(new JwtResponse(jwt, currentUser.getId(), userDetails.getUsername(), userDetails.getAuthorities()));
     }
+
+//    @PostMapping("/login")
+//    public ResponseEntity<?> login(@RequestBody User user) {
+//        Authentication authentication = authenticationManager.authenticate(
+//                new UsernamePasswordAuthenticationToken(user.getUsername(), user.getPassword()));
+//
+//        SecurityContextHolder.getContext().setAuthentication(authentication);
+//
+//        String jwt = jwtService.generateTokenLogin(authentication);
+//        UserDetails userDetails = (UserDetails) authentication.getPrincipal();
+//        String username = userDetails.getUsername();
+//        UserDetail userDetail = userDetailService.findByUsername(user.getUsername());
+//
+//        UserResponseDto userResponseDto = new UserResponseDto();
+//        userResponseDto.setId(userDetail.getUdid());
+//        userResponseDto.setName(userDetail.getTenGoi());
+//        userResponseDto.setUsername(username);
+//        userResponseDto.setStatus("1");
+//        userResponseDto.setRoleId(userDetail.getRoleId());
+//        RoleExtend roleExtend = roleExtendService.getById(userDetail.getRoleId());
+//        userResponseDto.setRole(roleExtend);
+//        userResponseDto.setToken(jwt);
+//        System.out.println(userResponseDto);
+//
+//        return ResponseEntity.ok(userResponseDto);
+//    }
 
     @GetMapping("/users/{id}")
     public ResponseEntity<User> getProfile(@PathVariable Long id) {
