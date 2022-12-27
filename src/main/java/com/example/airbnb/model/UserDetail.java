@@ -19,6 +19,8 @@ public class UserDetail {
 
     private String tenGoi;
 
+    private String gioiTinh;
+
     private Date ngayThangNamSinh;
 
     private Integer soDienThoaiCaNhan;
@@ -55,11 +57,11 @@ public class UserDetail {
 
     private Integer lopId;
 
-    private Character nganh;
+    private String nganh;
 
     private Integer parentCode;
 
-    private Character capBacHuynhTruong;
+    private String capBacHuynhTruong;
 
     private String roleId;
 

@@ -1,14 +1,19 @@
 package com.example.airbnb.model;
 
+import lombok.Getter;
+import lombok.Setter;
 import org.springframework.security.core.GrantedAuthority;
 
 import java.util.Collection;
 
+@Getter
+@Setter
 public class JwtResponse {
     private Long id;
     private String token;
     private String type = "Bearer";
     private String username;
+    private UserDetail userDetail;
     private Collection<? extends GrantedAuthority> roles;
 
     public JwtResponse(String accessToken, Long id, String username, Collection<? extends GrantedAuthority> roles) {
@@ -18,37 +23,15 @@ public class JwtResponse {
         this.id = id;
     }
 
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
-
-    public String getAccessToken() {
-        return token;
-    }
-
-    public void setAccessToken(String accessToken) {
+    public JwtResponse(String accessToken, Long id, String username, Collection<? extends GrantedAuthority> roles, UserDetail userDetail) {
         this.token = accessToken;
-    }
-
-    public String getTokenType() {
-        return type;
-    }
-
-    public void setTokenType(String tokenType) {
-        this.type = tokenType;
-    }
-
-    public String getUsername() {
-        return username;
-    }
-
-    public void setUsername(String username) {
         this.username = username;
+        this.roles = roles;
+        this.id = id;
+        this.userDetail = userDetail;
     }
+
+
 
     public Collection<? extends GrantedAuthority> getRoles() {
         return roles;

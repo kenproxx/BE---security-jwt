@@ -2,6 +2,7 @@ package com.example.airbnb.utils;
 
 public class ApiConstant {
     public static final String USER = "/users";
+    public static final String THONG_SO = "/parameters";
     public static final String LOP_HOC = "/classes";
 
     public static final String PERMISSION = "/permissions";
