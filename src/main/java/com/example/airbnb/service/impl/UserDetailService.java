@@ -35,9 +35,10 @@ public class UserDetailService {
     }
 
     public ResponseEntity<UserDetail> updateDetail(UserDetail userDetail) {
-        if (userRepository.existsByUsername(userDetail.getUsername())) {
-            if (userDetailRepository.existsByUsername(userDetail.getUsername())) {
-                UserDetail currentUser = userDetailRepository.findByUsername(userDetail.getUsername());
+        String userName = userDetail.getUsername();
+        if (userRepository.existsByUsername(userName)) {
+            if (userDetailRepository.existsByUsername(userName)) {
+                UserDetail currentUser = userDetailRepository.findByUsername(userName);
                 userDetail.setUdid(currentUser.getUdid());
             }
             save(userDetail);
