@@ -31,9 +31,6 @@ public class UserServiceImpl implements UserService {
     private RoleService roleService;
 
     @Autowired
-    private RoleServiceImpl roleServiceImpl;
-
-    @Autowired
     private UserDetailService userDetailService;
 
     @Autowired

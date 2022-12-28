@@ -55,7 +55,7 @@ public class UserDetail {
 
     private Integer giaoXuId;
 
-    private Integer lopId;
+    private Long lopId;
 
     private String nganh;
 

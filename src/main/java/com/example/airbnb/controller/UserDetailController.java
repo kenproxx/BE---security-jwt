@@ -1,5 +1,6 @@
 package com.example.airbnb.controller;
 
+import com.example.airbnb.dto.SearchUserDetail;
 import com.example.airbnb.model.User;
 import com.example.airbnb.model.UserDetail;
 import com.example.airbnb.service.impl.UserDetailService;
@@ -9,6 +10,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.PropertySource;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 @RestController
 @PropertySource("classpath:application.properties")
@@ -24,6 +27,12 @@ public class UserDetailController {
     @GetMapping(ApiConstant.GET_ALL)
     public ResponseEntity<Iterable<User>> showAllUser() {
         Iterable<User> users = userService.findAll();
+        return ResponseEntity.ok(users);
+    }
+
+    @GetMapping(ApiConstant.SEARCH)
+    public ResponseEntity<List<UserDetail>> searchUserDetail(@RequestBody SearchUserDetail searchUserDetail) {
+        List<UserDetail> users = userDetailService.searchUserDetail(searchUserDetail);
         return ResponseEntity.ok(users);
     }
 
@@ -43,7 +52,7 @@ public class UserDetailController {
     }
 
     @PutMapping("/add-to-class")
-    public ResponseEntity<UserDetail> addToClass(@RequestParam String username, @RequestParam int classId) {
+    public ResponseEntity<UserDetail> addToClass(@RequestParam String username, @RequestParam Long classId) {
         return userDetailService.addToClass(username, classId);
     }
 }

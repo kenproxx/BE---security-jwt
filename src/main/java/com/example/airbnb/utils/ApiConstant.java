@@ -15,6 +15,8 @@ public class ApiConstant {
 
     public static final String GET_ALL = "/all";
 
+    public static final String SEARCH = "/search";
+
     public static final String UPDATE = "/update";
 
     public static final String DELETE = "/delete";

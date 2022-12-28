@@ -19,20 +19,42 @@ public class LopHocServiceImpl {
         return lopHocRepository.findAll();
     }
 
+    public LopHoc findById(Long id) {
+        return lopHocRepository.findById(id).get();
+    }
+
     public Iterable<LopHoc> findByUsername(String tenLop) {
         return lopHocRepository.findAllByTenLopContaining(tenLop);
     }
 
-    public boolean isExist(LopHoc lopHoc) {
-        return lopHocRepository.existsByTenLop(lopHoc.getTenLop());
+    public boolean isExist(String tenLop) {
+        return lopHocRepository.existsByTenLop(tenLop);
     }
 
     public ResponseEntity<LopHoc> createLopHoc(LopHoc lopHoc) {
-        if (!isExist(lopHoc)) {
+        if (!isExist(lopHoc.getTenLop())) {
             save(lopHoc);
             return ResponseEntity.ok(lopHoc);
         }
         return ResponseEntity.badRequest().build();
     }
+
+    public ResponseEntity<LopHoc> updateLopHoc(LopHoc lopHoc) {
+        if (lopHocRepository.existsById(lopHoc.getId())) {
+            save(lopHoc);
+            return ResponseEntity.ok(lopHoc);
+        }
+        return ResponseEntity.badRequest().build();
+    }
+
+    public ResponseEntity<LopHoc> deleteLopHoc(Long id) {
+        if (lopHocRepository.existsById(id)) {
+            lopHocRepository.deleteById(id);
+            return ResponseEntity.ok().build();
+        }
+        return ResponseEntity.badRequest().build();
+    }
+
+
 
 }
