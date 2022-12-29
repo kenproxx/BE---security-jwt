@@ -55,4 +55,10 @@ public class UserDetailController {
     public ResponseEntity<UserDetail> addToClass(@RequestParam String username, @RequestParam Long classId) {
         return userDetailService.addToClass(username, classId);
     }
+
+
+    @PutMapping("/add-list-to-class")
+    public ResponseEntity<UserDetail> addStudentToClass(@RequestBody List<UserDetail> userDetails, @RequestParam Long classId) {
+        return userDetailService.addToClass(userDetails, classId);
+    }
 }

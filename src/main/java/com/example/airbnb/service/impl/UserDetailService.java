@@ -59,6 +59,25 @@ public class UserDetailService {
         return ResponseEntity.badRequest().build();
     }
 
+//    thêm list học sinh vào lớp
+    public ResponseEntity<UserDetail> addToClass(List<UserDetail> userDetails, Long classId) {
+        for ( UserDetail userDetail : userDetails) {
+            String username = userDetail.getUsername();
+            if (lopHocRepository.existsById(classId)) {
+                if (userRepository.existsByUsername(username)) {
+                    userDetail.setLopId(classId);
+                    save(userDetail);
+                    return ResponseEntity.ok(userDetail);
+                }
+            }
+        }
+        return ResponseEntity.badRequest().build();
+    }
+
+    public List<UserDetail> findAllByLopId(Long lopId) {
+        return userDetailRepository.findAllByLopId(lopId);
+    }
+
     public List<UserDetail> searchUserDetail(SearchUserDetail searchUserDetail) {
         return userDetailRepository.
                 findUserDetailByUsernameContainingAndTenGoiContainingAndLopIdAndNganh(

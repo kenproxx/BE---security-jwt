@@ -16,4 +16,6 @@ public interface UserDetailRepository extends JpaRepository<UserDetail, Long> {
     boolean existsByUsername(String username);
 
     List<UserDetail> findUserDetailByUsernameContainingAndTenGoiContainingAndLopIdAndNganh(String username, String tenGoi, Long lopId, String nganh);
+
+    List<UserDetail> findAllByLopId(Long lopId);
 }
