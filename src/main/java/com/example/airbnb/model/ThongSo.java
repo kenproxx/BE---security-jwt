@@ -2,13 +2,13 @@ package com.example.airbnb.model;
 
 import lombok.Data;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.*;
 
 @Entity
 @Data
+@Table(indexes =
+    @Index(name = "fn_index", columnList = "ten")
+        )
 public class ThongSo {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
@@ -16,7 +16,7 @@ public class ThongSo {
 
     private String ten;
 
-    private String giaTri;
+    private int giaTri;
 
     private String loai;
 }

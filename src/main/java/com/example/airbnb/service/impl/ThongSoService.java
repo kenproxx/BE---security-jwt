@@ -15,4 +15,8 @@ public class ThongSoService {
     public List<ThongSo> findAllByLoai(String loai) {
         return thongSoRepository.findAllByLoai(loai);
     }
+
+    public ThongSo getById(Long id) {
+        return thongSoRepository.getById(id);
+    }
 }

@@ -1,6 +1,8 @@
 package com.example.airbnb.service.impl;
 
 import com.example.airbnb.dto.SearchUserDetail;
+import com.example.airbnb.dto.TongSoNganh;
+import com.example.airbnb.model.ThongSo;
 import com.example.airbnb.model.UserDetail;
 import com.example.airbnb.repository.LopHocRepository;
 import com.example.airbnb.repository.UserDetailRepository;
@@ -9,6 +11,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Service
@@ -21,6 +24,9 @@ public class UserDetailService {
 
     @Autowired
     private LopHocRepository lopHocRepository;
+
+    @Autowired
+    private ThongSoService thongSoService;
 
     public void save(UserDetail userDetail) {
         userDetailRepository.save(userDetail);
@@ -84,5 +90,36 @@ public class UserDetailService {
                         searchUserDetail.getUsername(), searchUserDetail.getTenGoi(),
                         searchUserDetail.getLopId(), searchUserDetail.getNganh()
                 );
+    }
+
+    public List<TongSoNganh> getAllThongSo() {
+        List<TongSoNganh> tongSoNganhs = new ArrayList<>();
+        String nganh = "NGANH";
+        String gioiTinh = "GIOI_TINH";
+        List<ThongSo> listNganhs = thongSoService.findAllByLoai(nganh);
+        List<ThongSo> listGioiTinhs = thongSoService.findAllByLoai(gioiTinh);
+
+        for (ThongSo thongSo : listNganhs) {
+            TongSoNganh tongSoNganh = new TongSoNganh();
+            tongSoNganh.setId(thongSo.getId());
+            tongSoNganh.setDienGiai(thongSo.getTen());
+            tongSoNganh.setGiaTri(thongSo.getGiaTri());
+            tongSoNganh.setLoai(nganh);
+            tongSoNganh.setSoLuong(userDetailRepository.countAllByNganh(nganh));
+
+            tongSoNganhs.add(tongSoNganh);
+        }
+
+        for (ThongSo thongSo : listGioiTinhs) {
+            TongSoNganh tongSoNganh = new TongSoNganh();
+            tongSoNganh.setId(thongSo.getId());
+            tongSoNganh.setDienGiai(thongSo.getTen());
+            tongSoNganh.setGiaTri(thongSo.getGiaTri());
+            tongSoNganh.setLoai(gioiTinh);
+
+            tongSoNganhs.add(tongSoNganh);
+        }
+
+        return tongSoNganhs;
     }
 }

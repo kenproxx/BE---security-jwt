@@ -7,7 +7,9 @@ public class ApiConstant {
 
     public static final String PERMISSION = "/permissions";
 
-    public static final String ROLE_EXTEND = "/role-extends";
+    public static final String CHANGE_PASSWORD = "/change-password";
+
+    public static final String GET_ALL_THONG_SO = "/get-all-thong-so";
 
     public static final String DETAIL = "/detail";
 

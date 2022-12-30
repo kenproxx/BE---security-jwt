@@ -9,4 +9,6 @@ import java.util.List;
 @Repository
 public interface ThongSoRepository extends JpaRepository<ThongSo, Long> {
     List<ThongSo> findAllByLoai(String loai);
+
+    ThongSo getById(Long id);
 }

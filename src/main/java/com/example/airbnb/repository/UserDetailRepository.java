@@ -18,4 +18,6 @@ public interface UserDetailRepository extends JpaRepository<UserDetail, Long> {
     List<UserDetail> findUserDetailByUsernameContainingAndTenGoiContainingAndLopIdAndNganh(String username, String tenGoi, Long lopId, String nganh);
 
     List<UserDetail> findAllByLopId(Long lopId);
+
+    int countAllByNganh(String nganh);
 }

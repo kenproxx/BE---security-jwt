@@ -1,6 +1,7 @@
 package com.example.airbnb.controller;
 
 import com.example.airbnb.dto.SearchUserDetail;
+import com.example.airbnb.dto.TongSoNganh;
 import com.example.airbnb.model.User;
 import com.example.airbnb.model.UserDetail;
 import com.example.airbnb.service.impl.UserDetailService;
@@ -46,7 +47,7 @@ public class UserDetailController {
         return userDetailService.updateDetail(userDetail);
     }
 
-    @PutMapping("/change-password")
+    @PutMapping(ApiConstant.CHANGE_PASSWORD)
     public ResponseEntity<User> changePasswordUser(@RequestBody User user) {
         return userService.changePassword(user);
     }
@@ -60,5 +61,11 @@ public class UserDetailController {
     @PutMapping("/add-list-to-class")
     public ResponseEntity<UserDetail> addStudentToClass(@RequestBody List<UserDetail> userDetails, @RequestParam Long classId) {
         return userDetailService.addToClass(userDetails, classId);
+    }
+
+
+    @GetMapping(ApiConstant.GET_ALL_THONG_SO)
+    public ResponseEntity<List<TongSoNganh>> getAllThongSo() {
+        return ResponseEntity.ok(userDetailService.getAllThongSo());
     }
 }
