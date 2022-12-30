@@ -2,6 +2,7 @@ package com.example.airbnb.controller;
 
 import com.example.airbnb.dto.SearchUserDetail;
 import com.example.airbnb.dto.TongSoNganh;
+import com.example.airbnb.dto.UserListDto;
 import com.example.airbnb.model.User;
 import com.example.airbnb.model.UserDetail;
 import com.example.airbnb.service.impl.UserDetailService;
@@ -26,8 +27,8 @@ public class UserDetailController {
     private UserServiceImpl userService;
 
     @GetMapping(ApiConstant.GET_ALL)
-    public ResponseEntity<Iterable<User>> showAllUser() {
-        Iterable<User> users = userService.findAll();
+    public ResponseEntity<Iterable<UserListDto>> showAllUser() {
+        Iterable<UserListDto> users = userDetailService.findAll();
         return ResponseEntity.ok(users);
     }
 

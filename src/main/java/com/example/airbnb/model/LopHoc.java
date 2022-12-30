@@ -17,4 +17,6 @@ public class LopHoc {
 
     @Length(max = 50)
     private String tenLop;
+
+    private String nganh;
 }

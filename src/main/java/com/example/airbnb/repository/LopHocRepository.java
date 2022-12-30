@@ -9,4 +9,5 @@ public interface LopHocRepository extends JpaRepository<LopHoc, Long> {
     boolean existsByTenLop(String tenLop);
 
     boolean existsById(Long id);
+
 }

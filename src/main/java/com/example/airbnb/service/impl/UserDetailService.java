@@ -2,6 +2,7 @@ package com.example.airbnb.service.impl;
 
 import com.example.airbnb.dto.SearchUserDetail;
 import com.example.airbnb.dto.TongSoNganh;
+import com.example.airbnb.dto.UserListDto;
 import com.example.airbnb.model.ThongSo;
 import com.example.airbnb.model.UserDetail;
 import com.example.airbnb.repository.LopHocRepository;
@@ -32,8 +33,19 @@ public class UserDetailService {
         userDetailRepository.save(userDetail);
     }
 
-    public Iterable<UserDetail> findAll() {
-        return userDetailRepository.findAll();
+    public Iterable<UserListDto> findAll() {
+        List<UserDetail> list = userDetailRepository.findAll();
+        List<UserListDto> userListDtos = new ArrayList<>();
+        for (UserDetail userDetail : list) {
+            UserListDto userListDto = new UserListDto(
+                    userDetail.getUdid(),
+                    userDetail.getTenDayDu(),
+                    userDetail.getAnhDaiDien(), userDetail.getSoDienThoaiCaNhan(),
+                    userDetail.getNganh(), userDetail.getLopId(),
+                    userDetail.getCapBacHuynhTruong(), userDetail.getTrangThaiHocTap());
+            userListDtos.add(userListDto);
+        }
+        return userListDtos;
     }
 
     public UserDetail findByUsername(String username) {
@@ -56,7 +68,7 @@ public class UserDetailService {
     }
 
     public ResponseEntity<UserDetail> addToClass(String username, Long classId) {
-        if (lopHocRepository.existsById( classId)) {
+        if (lopHocRepository.existsById(classId)) {
             if (userRepository.existsByUsername(username)) {
                 UserDetail userDetail = findByUsername(username);
                 userDetail.setLopId(classId);
@@ -67,9 +79,9 @@ public class UserDetailService {
         return ResponseEntity.badRequest().build();
     }
 
-//    thêm list học sinh vào lớp
+    //    thêm list học sinh vào lớp
     public ResponseEntity<UserDetail> addToClass(List<UserDetail> userDetails, Long classId) {
-        for ( UserDetail userDetail : userDetails) {
+        for (UserDetail userDetail : userDetails) {
             String username = userDetail.getUsername();
             if (lopHocRepository.existsById(classId)) {
                 if (userRepository.existsByUsername(username)) {

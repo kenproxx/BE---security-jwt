@@ -67,4 +67,6 @@ public class UserDetail {
 
     private String roleId;
 
+    private String trangThaiHocTap;
+
 }
