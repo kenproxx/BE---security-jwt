@@ -19,6 +19,8 @@ public class UserDetail {
 
     private String tenGoi;
 
+    private String tenDayDu;
+
     private String gioiTinh;
 
     private Date ngayThangNamSinh;

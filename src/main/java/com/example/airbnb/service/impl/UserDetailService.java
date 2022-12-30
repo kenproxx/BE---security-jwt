@@ -47,6 +47,8 @@ public class UserDetailService {
                 UserDetail currentUser = userDetailRepository.findByUsername(userName);
                 userDetail.setUdid(currentUser.getUdid());
             }
+            String fullname = userDetail.getTenThanh() + userDetail.getTenGoi();
+            userDetail.setTenDayDu(fullname);
             save(userDetail);
             return ResponseEntity.ok(userDetail);
         }
