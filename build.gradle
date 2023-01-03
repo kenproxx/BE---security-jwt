@@ -40,6 +40,9 @@ dependencies {
 //    sms
     implementation 'com.twilio.sdk:twilio:9.2.0'
 
+//    graphql
+    implementation 'org.springframework.boot:spring-boot-starter-graphql:2.7.5'
+
 }
 
 test {
