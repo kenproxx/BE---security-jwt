@@ -42,9 +42,5 @@ dependencies {
 
 //    graphql
     implementation 'org.springframework.boot:spring-boot-starter-graphql:2.7.5'
-
-}
-
-test {
-    useJUnitPlatform()
+//    implementation 'com.graphql-java-kickstart:graphql-spring-boot-starter:11.1.0'
 }
