@@ -25,7 +25,7 @@ public class UserDetail {
 
     private Date ngayThangNamSinh;
 
-    private Integer soDienThoaiCaNhan;
+    private String soDienThoaiCaNhan;
 
     private String email;
 
@@ -47,11 +47,11 @@ public class UserDetail {
 
     private String tenBo;
 
-    private Integer sdtBo;
+    private String sdtBo;
 
     private String tenMe;
 
-    private Integer sdtMe;
+    private String sdtMe;
 
     private String diaChi;
 

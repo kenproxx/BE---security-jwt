@@ -1,6 +1,7 @@
 package com.example.airbnb.controller;
 
 import com.example.airbnb.model.ThongSo;
+import com.example.airbnb.repository.ThongSoRepository;
 import com.example.airbnb.service.impl.ThongSoService;
 import com.example.airbnb.service.impl.UserDetailService;
 import com.example.airbnb.utils.ApiConstant;
@@ -19,11 +20,14 @@ public class ThongSoController {
     private ThongSoService thongSoService;
 
     @Autowired
+    private ThongSoRepository thongSoRepository;
+
+    @Autowired
     private UserDetailService userDetailService;
 
     @GetMapping
-    public List<ThongSo> getThongSo(@RequestParam String loai) {
-        return thongSoService.findAllByLoai(loai);
+    public List<ThongSo> getThongSo() {
+        return thongSoRepository.findAll();
     }
 
 

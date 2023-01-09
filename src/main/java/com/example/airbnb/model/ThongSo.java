@@ -19,4 +19,6 @@ public class ThongSo {
     private int giaTri;
 
     private String loai;
+
+
 }
