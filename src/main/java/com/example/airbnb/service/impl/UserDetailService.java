@@ -9,6 +9,10 @@ import com.example.airbnb.repository.LopHocRepository;
 import com.example.airbnb.repository.UserDetailRepository;
 import com.example.airbnb.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
@@ -33,20 +37,32 @@ public class UserDetailService {
         userDetailRepository.save(userDetail);
     }
 
-    public Iterable<UserListDto> findAll() {
-        List<UserDetail> list = userDetailRepository.findAll();
-        List<UserListDto> userListDtos = new ArrayList<>();
-        for (UserDetail userDetail : list) {
-            UserListDto userListDto = new UserListDto(
-                    userDetail.getUdid(),
-                    userDetail.getUsername(),
-                    userDetail.getTenDayDu(),
-                    userDetail.getAnhDaiDien(), userDetail.getSoDienThoaiCaNhan(),
-                    userDetail.getNganh(), userDetail.getLopId(),
-                    userDetail.getCapBacHuynhTruong(), userDetail.getTrangThaiHocTap());
-            userListDtos.add(userListDto);
+//    public Iterable<UserListDto> findAll() {
+//        List<UserDetail> list = userDetailRepository.findAll();
+//        List<UserListDto> userListDtos = new ArrayList<>();
+//        for (UserDetail userDetail : list) {
+//            UserListDto userListDto = new UserListDto(
+//                    userDetail.getUdid(),
+//                    userDetail.getUsername(),
+//                    userDetail.getTenDayDu(),
+//                    userDetail.getAnhDaiDien(), userDetail.getSoDienThoaiCaNhan(),
+//                    userDetail.getNganh(), userDetail.getLopId(),
+//                    userDetail.getTrangThaiHocTap());
+//            userListDtos.add(userListDto);
+//        }
+//        return userListDtos;
+//    }
+
+    public Iterable<UserDetail> findAll(int page, int size) {
+        if(page == 0) {
+            page = 1;
         }
-        return userListDtos;
+        if(size == 0) {
+            size = 10;
+        }
+        PageRequest pageable = PageRequest.of(page,size);
+        Page<UserDetail> list = userDetailRepository.findAll(pageable);
+        return list;
     }
 
     public UserDetail findByUsername(String username) {
@@ -58,7 +74,7 @@ public class UserDetailService {
         if (userRepository.existsByUsername(userName)) {
             if (userDetailRepository.existsByUsername(userName)) {
                 UserDetail currentUser = userDetailRepository.findByUsername(userName);
-                userDetail.setUdid(currentUser.getUdid());
+                userDetail.setId(currentUser.getId());
             }
             String fullname = userDetail.getTenThanh() + " " + userDetail.getTenGoi();
             userDetail.setTenDayDu(fullname);
@@ -101,7 +117,7 @@ public class UserDetailService {
 
     public List<UserDetail> searchUserDetail(SearchUserDetail searchUserDetail) {
         return userDetailRepository.
-                findUserDetailByUsernameContainingAndTenGoiContainingAndLopIdAndNganh(
+                findUserDetailByUsernameOrTenGoiOrLopIdOrNganh(
                         searchUserDetail.getUsername(), searchUserDetail.getTenGoi(),
                         searchUserDetail.getLopId(), searchUserDetail.getNganh()
                 );

@@ -188,7 +188,7 @@ public class ExportExcel {
     public void writeBook(UserDetail userDetail, Row row) {
 
         Cell cell = row.createCell(COLUMN_UID);
-        cell.setCellValue(userDetail.getUdid());
+        cell.setCellValue(userDetail.getId());
 
 
         cell = row.createCell(COLUMN_USERNAME);

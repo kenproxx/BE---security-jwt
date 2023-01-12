@@ -15,10 +15,9 @@ public class UserListDto {
     private String username;
     private String tenDayDu;
     private String avatar;
-    private String sdt;
+    private String soDienThoaiCaNhan;
     private String nganh;
     private Long lopId;
-    private String capBacHuynhTruong;
-    private String status;
+    private String trangThaiHocTap;
 
 }
